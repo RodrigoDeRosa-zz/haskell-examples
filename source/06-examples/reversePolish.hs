@@ -19,8 +19,8 @@ solveRPN = head . foldl foldingFunction [] . words
         foldingFunction (x:y:ys) "-"    = (x - y):ys
         foldingFunction (x:y:ys) "/"    = (x / y):ys
         foldingFunction (x:y:ys) "^"    = (x ** y):ys
-        foldingFunction (x:xs) "ln"     = log x:xs
-        foldingFunction xs "sum"        = [sum xs]
+        foldingFunction (x:xs)   "ln"   = log x:xs
+        foldingFunction xs       "sum"  = [sum xs]
         foldingFunction xs numberString = read numberString:xs
 
 main = do
