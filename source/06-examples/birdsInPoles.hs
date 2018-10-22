@@ -6,6 +6,10 @@
 type Birds = Int
 type Pole = (Birds, Birds)
 
+-- If he steps on a banana, he falls
+banana :: Pole -> Maybe Pole
+banana _ = Nothing
+
 -- Now we make a function to land on the left
 landLeft :: Birds -> Pole -> Maybe Pole
 landLeft n (left, right)
@@ -17,12 +21,11 @@ landRight n (left, right)
   | abs (left - (right + n)) < 4 = Just (left, right + n)
   | otherwise                    = Nothing
 
--- Look how this works!
-exampleNothing = return (0, 0) >>= landRight 2 >> Nothing >>= landLeft 4
-
 -- What will this do?
 example1 = return (0, 0) >>= landRight 1 >>= landLeft 2 >>= landRight 3
 -- What will this do?
 example2 = return (0, 0) >>= landRight 3 >>= landRight 3
 -- What will this do?
 example3 = return (0, 0) >>= landRight 1 >>= landLeft 3 >>= landRight 3 >>= landRight 3
+-- What will this do?
+example4 = return (0, 0) >>= landRight 2 >> banana >>= landLeft 2
